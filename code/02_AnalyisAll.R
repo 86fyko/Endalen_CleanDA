@@ -127,7 +127,7 @@ summary(m_mixed_2way)
 m_mixed_t0 <- lmer(plot_biomass ~ YEAR + SUBSITE+ (SUBSITE|YEAR),data = dryCAS)
 AIC(m_mixed_3way, m_mixed_2way,m_mixed_t0)
 
-anova(m_mixed_3way,m_mixed, m_mixed_t,m_mixed_t0,m_mixed_null, m_mixed_i )
+anova(m_mixed_3way, m_mixed_t,m_mixed_t0,m_mixed_null, m_mixed_i )
 anova(m_mixed_t,m_mixed_t0)
 
 
