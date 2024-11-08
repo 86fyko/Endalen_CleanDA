@@ -159,6 +159,7 @@ unique(DRYAS.df[,c("TREATMENT","PLOT")])%>%na.omit()
 merge(DRYAS.df, treatments)
 
 #DRYASsub <- subset(DRYAS.df, PLOT 
+plotdir <- here("output", "plots", "veg")
 
 ggplot(DRYAS.df, aes(x=PLOT,fill=as.factor(YEAR)))+
   geom_bar(position="dodge")+
@@ -171,7 +172,7 @@ ggplot(DRYAS.df, aes(x=SPECIES_NAME,fill=as.factor(YEAR)))+
   scale_fill_viridis_d()+
   coord_flip()+
   theme_bw()
-ggsave("./output/plots/veg/DRYAS_years.png", height=3.5, width=5)
+ggsave(paste(plotdir, "DRYAS_years.png", sep=""), height=3.5, width=5)
 
 
 ##install.packages("tidyverse")
