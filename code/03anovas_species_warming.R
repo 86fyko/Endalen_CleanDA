@@ -1,6 +1,5 @@
 # Set working directory and read data
-setwd("~/Documents/Uni/Masterarbeit/Data_Analysis_Endalen")
-sdata <- unique(read.csv("./alldata_long_abundance.csv"))
+sdata <- unique(read.csv(here("data", "veg","secondary","alldata_long_abundance.csv")))
 
 # Independent variables
 independenvar <- c("YEAR", "TREATMENT")
