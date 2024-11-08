@@ -96,7 +96,7 @@ veg_long <- merge(VEG_Abund,species_info)
 
 plot_treatment<- unique(VEG_Abund[,c(2,4)])
 
-write_csv(plot_treatment, paste(here("data"),"/plot_treatment.csv", sep=""))
+write_csv(plot_treatment, paste(here("data"),"/plot_treatments.csv", sep=""))
 
 
 
