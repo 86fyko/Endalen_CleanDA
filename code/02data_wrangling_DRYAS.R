@@ -215,10 +215,10 @@ dirsecondary <- here("data", "secondaryData")
 # transfer to wide dataset
 DRY_wide<- pivot_wider(VEG_Abund, values_from=n, names_from = SPECIES_NAME)
 #DRY_wide[is.na(DRY_wide)]<-0
-write.csv(DRY_wide, paste(dirsecondary,"DryasPerPlot.csv", sep=""), row.names = FALSE)
+write.csv(DRY_wide, here(dirsecondary,"DryasPerPlot.csv"), row.names = FALSE)
 
 recorder_PY <- unique(DRYAS_VASC[,c(5,14,19)])#plot,recorder, year
 file_simone <- merge(DRY_wide,recorder_PY, by=c("PLOT", "YEAR"), all.x=T) #plot,recorder, year
 nrow(file_simone) == nrow(unique(file_simone))
-write.csv(file_simone, paste(dirsecondary, "/DryasPerPlot_recorder.csv", sep="")
+write.csv(file_simone, here(dirsecondary, "DryasPerPlot_recorder.csv")
           , row.names = FALSE)
