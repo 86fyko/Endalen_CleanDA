@@ -147,6 +147,6 @@ allendalen_ordered <- unique(allendalen[, ordered_column_names])
 colnames(allendalen_ordered)
 
 
-write.csv(allendalen_ordered,paste(datadir_secondary, "allEndalenAbundance.csv"),
+write.csv(allendalen_ordered,here(datadir_secondary, "allEndalenAbundance.csv"),
           row.names = FALSE)
 
