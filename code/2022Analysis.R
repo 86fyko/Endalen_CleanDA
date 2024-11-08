@@ -8,8 +8,8 @@ library(here)
 
 # File paths
 data_dir <- here("data", "secondaryData")
-output_dir <- here("plots", "veg")
-model_output_dir <- here("models")
+output_dir <- here("output","plots", "veg")
+model_output_dir <- here("output","models")
 data_file <- file.path(data_dir, "data2022PerPlot.csv")
 treatment_file <- here("data", "plot_treatments.csv")
 
