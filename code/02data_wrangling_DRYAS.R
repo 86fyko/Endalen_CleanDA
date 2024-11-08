@@ -171,7 +171,7 @@ ggplot(DRYAS.df, aes(x=SPECIES_NAME,fill=as.factor(YEAR)))+
   scale_fill_viridis_d()+
   coord_flip()+
   theme_bw()
-ggsave("./plots/veg/DRYAS_years.png", height=3.5, width=5)
+ggsave("./output/plots/veg/DRYAS_years.png", height=3.5, width=5)
 
 
 ##install.packages("tidyverse")
