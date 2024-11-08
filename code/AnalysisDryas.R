@@ -7,7 +7,7 @@ library(here)
 
 # Define paths using `here()`
 data_dir <- here("data", "secondaryData")
-plot_dir <- here("plots", "veg")
+plot_dir <- here("output","plots", "veg")
 
 # Load data files using `here()`
 Dryas_PerPlot <- read.csv(here(data_dir, "DryasPerPlot.csv"))
