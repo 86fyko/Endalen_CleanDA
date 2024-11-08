@@ -1,7 +1,20 @@
+# Load required libraries
 library(dplyr)
-setwd("~/Documents/Uni/Masterarbeit/Data_Analysis_Endalen")
-Dryas_PerPlot <- read.csv("./data/secondaryData/DryasPerPlot.csv")
-allendalen <-read.csv("./data/secondaryData/allEndalenAbundance.csv")
+library(ggplot2)
+library(viridis)
+library(tidyr)
+library(here)
+
+# Define paths using `here()`
+data_dir <- here("data", "secondaryData")
+plot_dir <- here("plots", "veg")
+
+# Load data files using `here()`
+Dryas_PerPlot <- read.csv(here(data_dir, "DryasPerPlot.csv"))
+allendalen <- read.csv(here(data_dir, "allEndalenAbundance.csv"))
+treatment <- read.csv(here("data", "plot_treatments.csv"))
+
+
 datasets <- list(Dryas_PerPlot,allendalen)
 datasets[i]
 names(datasets) <- c("Dryas_PerPlot","allendalen")
