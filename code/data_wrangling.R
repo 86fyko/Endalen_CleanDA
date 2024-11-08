@@ -126,7 +126,7 @@ allendalen <- merge(VASCULAR_wide,Endalen2022wide[,-ncol(Endalen2022wide)], all 
 colnames(allendalen)
 
 #add Treatment to allendalen
-treatment <- read.csv("./data/plot_treatments.csv")
+treatment <- read.csv(paste(here("data"), "/plot_treatments.csv", sep=""))
 allendalen <- merge(allendalen[, !(names(allendalen) %in% c("TREATMENT"))], treatment, by="PLOT", all.x=T) #remove treatment from original plot
 
 allendalen$TREATMENT <- as.factor(allendalen$TREATMENT)
