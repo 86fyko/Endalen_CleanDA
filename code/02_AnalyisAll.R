@@ -75,3 +75,6 @@ ggsave(here(plotdir, paste("boxplot", names(datasets)[i], ".png")), height=14, w
 
 # Additional loop and filtering steps with ggsave for final results
 ggsave(here("plotdir", paste("species_years", names(datasets)[i], ".png")), height=14, width=10)
+
+
+
