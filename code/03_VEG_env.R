@@ -9,9 +9,10 @@ library(vegan)
 library(ggplot2)
 
 # set working directory & load data
-setwd("/Users/ms/Documents/Uni/Masterarbeit/Data_Analysis_Endalen")
-vegdata_all <- read.csv("alldata_long_abundance.csv", header = TRUE) # vegetation data
-env <- read.csv("./data/secondaryData/ENV/allenvironmental.csv", header = TRUE) # environmental data
+#setwd("/Users/ms/Documents/Uni/Masterarbeit/Data_Analysis_Endalen")
+datadir <- here("data", "secondaryData")
+vegdata_all <- read.csv(paste(datadir, "/alldata_long_abundance.csv", sep=""), header = TRUE) # vegetation data
+env <- read.csv(paste(datadir, "/ENV/allenvironmental.csv", sep=""), header = TRUE) # environmental data
 rownames(env) <- env$PLOT
 
 #merge dataframes
