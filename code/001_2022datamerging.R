@@ -190,8 +190,9 @@ data2022_wide_R <- merge(VASCULAR_wide,recorder_PY, by="PLOT", all.x=T) #plot,re
 
 #### save clean dataframe####
 getwd()
-write.csv(data2022_wide, "./data2022PerPlot.csv", row.names = FALSE)
-write.csv(data2022_wide_R, "./data2022PerPlot_rec.csv", row.names = FALSE)
+datadir_secondary <- here("data","secondaryData")
+write.csv(data2022_wide, here(datadir_secondary,"data2022PerPlot.csv"), row.names = FALSE)
+write.csv(data2022_wide_R, here(datadir_secondary,"data2022PerPlot_rec.csv"), row.names = FALSE)
 #write.csv(VASCULAR_wide,"./data2022PerPlot.csv",  row.names = FALSE)
 
 names(data2022_wide)
