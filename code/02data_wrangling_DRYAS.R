@@ -2,6 +2,7 @@
 #     It should be replaced by data _ wrangling                                 #
 #     In this case it does not need to be cleaned with the 2022datamerging code #
 #     but it would be good to adjust it so it doesnt exist double               #
+#     It depends on the data_wrangling code because it needs the treatment.     #
 #     I need to double check how i can merge this with the data wrangling code  #
 #     maybe I can just completly ignore the script                              #
 #     Output: "Endalen_dryas_allyears.csv", "DryasPerPlot.csv", DryasPerPlot.csv#
@@ -11,15 +12,15 @@
 library(tidyverse)
 library(viridis)
 library(taxadb)
-#setwd("~/Uni/Masterarbeit/Data_Analysis_Endalen/data/")
+
 ####load data####
 #2022 data
-DRYAS_PI<- read.csv("./data/veg/CSV2/Endalen_2022_AL_Dryas.csv")
-DRYAS_M <- read.csv("./data/veg/CSV2/Endalen_2022_MS_Dryas.csv")
-DRY_meta <- read.csv("./data/veg/CSV2/Endalen_2022_AL_Dryas_Meta.csv")
+datadir <- here("data", "veg", "CSV2")
+DRYAS_PI<- read.csv(paste(datadir,"/Endalen_2022_AL_Dryas.csv", sep=""))
+DRYAS_M <- read.csv(paste(datadir,"/Endalen_2022_MS_Dryas.csv", sep=""))
+DRY_meta <- read.csv(paste(datadir,"/Endalen_2022_AL_Dryas_Meta.csv",sep=""))
 DRY_meta <- DRY_meta[-1,] #delete row with explanation for colnames
 
-str(DRYAS)
 str(DRY_meta)
 x1 <- merge(DRYAS_PI[,c(1:15)], DRYAS_M, all=T)
 x2 <- rbind(DRYAS_PI[,c(1:15)], DRYAS_M)
@@ -29,7 +30,6 @@ head(x2)
 nrow(x1)
 nrow(x2)
 which(x1!=x2)
-names(DRYAS_PI)== names(DRYAS_M)
 
 levels(as.factor(x1$PLOT))
 
@@ -51,7 +51,6 @@ unique(DRYAS$SPECIES_NAME)
 
 
 # check for species names in general:
-
 unique(DRYAS$SPECIES_NAME)
 # Convert to lowercase
 DRYAS$SPECIES_NAME <- clean_names(DRYAS$SPECIES_NAME)
@@ -73,7 +72,7 @@ unique(DRYAS$SPECIES_NAME)
 #### merge with dryas data from previous years####
 
 ## import old data
-EndalenOld<- read.csv("./data/veg/RAW_Excel/ENDALEN_ALLSITES_2003to2015.csv")
+EndalenOld<- read.csv(paste(here("data","veg","RAW_Excel"),"/ENDALEN_ALLSITES_2003to2015.csv", sep=""))
 str(EndalenOld)
 names(EndalenOld)
 EndalenOld$SPECIES_NAME <- clean_names(EndalenOld$SPECIES_NAME)
@@ -114,18 +113,19 @@ DRYAS.df$SPECIES_NAME <- str_replace_all(DRYAS.df$SPECIES_NAME,
                                       ))
 
 # Define a function to replace species names
-replace_species <- function(name) {
-  for (i in seq_along(species_translation$original)) {
-    name <- gsub(species_translation$original[i], species_translation$replacement[i], name, ignore.case = F)
-  }
-  return(name)
-}
+#replace_species <- function(name) {
+#  for (i in seq_along(species_translation$original)) {
+#    name <- gsub(species_translation$original[i], species_translation$replacement[i], name, ignore.case = F)
+#  }
+#  return(name)
+#}
+
 # Use sapply to replace species names in the SPECIES_NAME column
-DRYAS.df$SPECIES_NAME <- sapply(DRYAS.df$SPECIES_NAME, replace_species)
+#DRYAS.df$SPECIES_NAME <- sapply(DRYAS.df$SPECIES_NAME, replace_species)
 # Check the updated species names
 unique(DRYAS.df$SPECIES_NAME)
 
-write.csv(DRYAS.df, "./data/veg/secondary/Endalen_dryas_allyears.csv")
+write.csv(DRYAS.df, paste(here("data", "veg", "secondary"),"/Endalen_dryas_allyears.csv", sep=""))
 
 #subset: original experiment
 DRYAS.df$plnr <-  as.numeric(substring(DRYAS.df$PLOT,  6))
@@ -154,7 +154,7 @@ ggplot(DRYAS.df, aes(x=PLOT,fill=as.factor(YEAR)))+
   theme_bw()
 
 
-treatments<- read.csv("data/plot_treatments.csv")
+treatments<- read.csv(paste(here("data"),"/plot_treatments.csv", sep=""))
 unique(DRYAS.df[,c("TREATMENT","PLOT")])%>%na.omit()
 merge(DRYAS.df, treatments)
 
@@ -180,7 +180,7 @@ library("vegan")
 library("reshape2")
 
 #### import data####
-DRYAS.df <- read.csv("./data/veg/secondary/Endalen_dryas_allyears.csv")
+DRYAS.df <- read.csv(paste(here("data","veg","secondary"),"/Endalen_dryas_allyears.csv",sep=""))
 DRYAS.all<- DRYAS.df
 str(DRYAS.all)
 names(DRYAS.all)
@@ -210,13 +210,14 @@ VASCULAR_Abund <-   group_by(vascular.df,PLOT,SUBSITE,TREATMENT,YEAR) %>%
 species_info <- unique(vascular.df[,c(8:10)])
 vas_long <- merge(VASCULAR_Abund,species_info)
 
+dirsecondary <- here("data", "secondaryData")
 # transfer to wide dataset
 DRY_wide<- pivot_wider(VEG_Abund, values_from=n, names_from = SPECIES_NAME)
 #DRY_wide[is.na(DRY_wide)]<-0
-write.csv(DRY_wide, "DryasPerPlot.csv", row.names = FALSE)
+write.csv(DRY_wide, paste(dirsecondary,"DryasPerPlot.csv", sep=""), row.names = FALSE)
 
 recorder_PY <- unique(DRYAS_VASC[,c(5,14,19)])#plot,recorder, year
 file_simone <- merge(DRY_wide,recorder_PY, by=c("PLOT", "YEAR"), all.x=T) #plot,recorder, year
 nrow(file_simone) == nrow(unique(file_simone))
-write.csv(file_simone, "/Users/ms/Documents/Uni/Masterarbeit/Data_Analysis_Endalen/data/secondaryData/DryasPerPlot_recorder.csv"
+write.csv(file_simone, paste(dirsecondary, "/DryasPerPlot_recorder.csv", sep="")
           , row.names = FALSE)
