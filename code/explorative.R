@@ -1,7 +1,7 @@
 #install.packages("tidyverse")
 library("tidyverse")
 
-Endalen2015df<- read.csv("./data/veg/CSV2/Endalen_PF_2015.csv")
+Endalen2015df<- read.csv(paste(here("data","veg", "CSV2"), "/Endalen_PF_2015.csv", sep=""))
 str(Endalen2015df)
 range(Endalen2015df$ABUNDANCE)
 
@@ -38,5 +38,3 @@ names(plot_diversity) <- plots_v
 names(plot_species) <- plots_v
 
 hist(plot_diversity)
-‚
-
