@@ -10,7 +10,7 @@ library(here)
 data_dir <- here("data", "secondaryData")
 output_dir <- here("output","plots", "veg")
 model_output_dir <- here("output","models")
-data_file <- file.path(data_dir, "data2022PerPlot.csv")
+data_file <- file.path(data_dir, "data2022PerPlot_rec.csv") #data2022PerPlot.csv
 treatment_file <- here("data", "plot_treatments.csv")
 
 # Load and preprocess data
