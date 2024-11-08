@@ -1,23 +1,29 @@
-####  Purpose of the code: Merge the 2022 datasets                         ####
-#     Author: Merle A. Scheiner  , 2024                                       #
-#   It should be fairly similar to the data_wrangling codes                   # 
-#   It is supposed to merge and clean the 2022 data by reading the xlsx files #
-#   The output is a wide dataformat with the species abundance per plot       #
-#   output files: "./2022data.csv", "./data2022PerPlot.csv" and completeness  #
-###############################################################################
+#### Purpose of the code: Merge and Clean 2022 Dataset ####
+#     Author: Merle A. Scheiner, 2024
+# This script reads, merges, and cleans 2022 species abundance data for Endalen. similar to data_wrangling code
+# Output:
+# 1) A wide format species abundance per plot (data2022PerPlot.csv)
+# 2) Completeness files to assess data consistency (2022completeness.csv, 2022completeness_summary.csv)
 
-#### load packages####
+
+#### Load Required Libraries ####
 library(tidyverse)
 library(viridis)
 library(readxl)
 library(taxadb)
+library(here)
 
-setwd("~/Documents/Uni/Masterarbeit/Data_Analysis_Endalen")
+#### Define Paths Using `here` ####
+data_dir <- here("Endalen_CleanDA", "Data")
 
-####load data####
-#DRY_low<- read_excel("data/veg/RAW_Excel/Endalen_2022_AL_Dryas.xlsx",sheet = 2)
+#### Load Data Files ####
+# Load Excel files for vegetation data and metadata
+excel_path <- here(data_dir, "data", "veg", "RAW_Excel")
+file_list2022 <- list.files(path = excel_path, pattern = "\\.xlsx$")
+file_list2022 <- file_list2022[!grepl("^~\\$", file_list2022)]  # Exclude temporary files
 
-path <- "./data/veg/RAW_Excel/"
+
+path <- here("data" ,"veg", "RAW_Excel")
 setwd (path)
 file.list2022 <- list.files(pattern='*.xlsx') # %>% 
 #filelist2022 <- list.files(pattern='*.csv')
@@ -105,6 +111,7 @@ unique(vegdata2022.df$SPECIES_NAME)
 
 ##### check for data completenes ####
 setwd("~/Documents/Uni/Masterarbeit/Data_Analysis_Endalen/data/secondaryData")
+#data_dir <- here("Endalen_CleanDA", "Data")
 #dir.create("./secondaryData", showWarnings = FALSE)
 str(vegdata2022.df)
 write.csv2(vegdata2022.df, file = "./2022data.csv", row.names = FALSE)
