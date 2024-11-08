@@ -186,7 +186,7 @@ library(lme4)
 i = 2
 
 datalonger <- subset(allendalen.long, TREATMENT %in% c("CTL", "OTC") & SUBSITE %in% c("CAS-L", "DRY-L"))
-write.csv(datalonger, "alldata_long_abundance.csv", row.names=F)
+write.csv(datalonger, here("data", "secondaryData","alldata_long_abundance.csv"), row.names=F)
 
 
 lmTREAT<- lm(abundance~TREATMENT + SUBSITE + YEAR ,datalonger)
