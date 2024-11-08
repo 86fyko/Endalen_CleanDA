@@ -1,5 +1,5 @@
 # Set working directory and read data
-sdata <- unique(read.csv(here("data", "veg","secondary","alldata_long_abundance.csv")))
+sdata <- unique(read.csv(here("data","secondaryData","alldata_long_abundance.csv")))
 
 # Independent variables
 independenvar <- c("YEAR", "TREATMENT")
